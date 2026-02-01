@@ -3,3 +3,4 @@ __pycache__/*
 tables/table*
 personal*
 
+tables/*old.txt

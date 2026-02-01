@@ -4,9 +4,7 @@ import os
 import numpy as np
 from tabulate import tabulate
 
-folder_path_finanzen = r'example_path_to_finanzen_folder'
-file_name_csv_file = r'example_file.csv'
-banking_file_csv = os.path.join(folder_path_finanzen, file_name_csv_file)
+banking_file_csv = r'Umsaetze_Beispiel.csv'
 
 def df_from_csv(csv_filepath:str, sep=';', encoding='utf-8-sig', 
                 decimal= ',', thousands = '.', dtype=None):
@@ -83,11 +81,13 @@ if __name__ == '__main__':
     # Erstelle neue Kategorie Spalte
     df['Kategorie'] = ''
 
+    print(df)
+
     # Ergänze Kategorie in jeder Zeile in Abhängigkeit vom Namen
     # for i, name in enumerate(df['Name']):
     for i in range(df.shape[0]):
-        name = df["Name"].iloc[i]
-        zweck = df["Zweck"].iloc[i]
+        name = df['Name'].iloc[i]
+        zweck = df['Zweck'].iloc[i]
         df['Kategorie'].iat[i] = get_category_of_name(name_to_categories_dict, name=name, zweck=zweck)
 
     # Monatsübersicht erstellen
@@ -97,10 +97,10 @@ if __name__ == '__main__':
     print(pretty_table(df_overview))
 
     # Pretty Tabelle als Textdatei speichern 
-    save_prettytable_to_textfile(df_overview, os.path.join('tables', "table_overview.txt"))
+    save_prettytable_to_textfile(df_overview, os.path.join('tables', "example_table_overview.txt"), overwrite=False)
     
     # Pretty Tabelle per Monat als Textdatei speichern 
     for month in df_overview.columns[:-1]:  # Exclude 'Mean' columns
         df_month = df[df['Monat']==month]
         df_month['Zweck'] = df_month['Zweck'].apply(lambda x: (x[:26] + '...') if len(x) > 26 else x)
-        save_prettytable_to_textfile(df_month, os.path.join('tables', f"table_full_{month}.txt"), overwrite=True, showindex=False)
+        save_prettytable_to_textfile(df_month, os.path.join('tables', f"example_table_{month}.txt"), overwrite=False, showindex=False)

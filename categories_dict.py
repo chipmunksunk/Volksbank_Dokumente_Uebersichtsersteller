@@ -2,10 +2,7 @@ categories_to_name_dict = {
     'Lebensmittel' : ['Aldi',
                       'Rewe',
                       ],
-    'Tanken' : ['Aral',
-                'Esso',
-                'Shell',
-                'Tankstelle', 
+    'Einnahmen' : ['Gehalt',
                 ],
 }
 
